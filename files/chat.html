@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+
+	<link href="style.css" media="all" rel="stylesheet" type="text/css">
+    <link href="prism.css" media="all" rel="stylesheet" type="text/css">
+    <link href="lity.css" rel="stylesheet"/>
+	     <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; overflow:hidden;background:url(./holidaylights3.jpg);	 }
+      form { background: transparent; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input {display:none; border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { display:none;font-size:xx-large;color:#fff;width: 9%; background: #982a32; border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; color:#035402;font-size:xx-large;text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+      #messages li { text-align:center;padding: 5px 10px;background:rgba(255,255,255,.1); }
+      #messages li:nth-child(odd) { background:rgba(255,255,255,.3);color:#982a32 }
+    </style>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	    <script>
+		var teamdata = {"teams": [
+		{
+			"id": 1,
+			"name": "Elves",
+			"url":"http://www.youtube.com/embed/rBSlev7NMgU?start=0&end=27",
+			"bg": "https://www.thirtyone-west.com/wp-content/uploads/2016/11/elf.jpg"
+		},
+		{
+			"id": 2,
+			"name": "Frosties",
+			"url":"http://www.youtube.com/embed/_Qw-h_yZ1ZQ?start=1&end=9",
+			"bg": "http://wallpapercave.com/wp/B9pvEG1.jpg"
+		},
+		{
+			"id": 3,
+			"name": "Grinches",
+			"url":"http://www.youtube.com/embed/ppWrbYC3WwQ?start=1&end=13",
+			"bg": "http://schmoesknow.com/wp-content/uploads/2014/12/how-the-grinch-stole-christmas-7.jpg"
+		},
+		{
+			"id": 4,
+			"name": "Polar Express",
+			"url":"http://www.youtube.com/embed/3bgyZ2GmJI0?start=105&end=114",
+			"bg": "http://img.youtube.com/vi/3bgyZ2GmJI0/maxresdefault.jpg"
+		},
+		{
+			"id": 5,
+			"name": "Griswolds",
+			"url":"https://www.youtube.com/embed/gd_qt_ijuSs?start=23&&end=28",
+			"bg": "https://i.ytimg.com/vi/-kTlFQHDIIo/maxresdefault.jpg"
+		},
+		{
+			"id": 6,
+			"name": "McCallisters",
+			"url":"//www.youtube.com/embed/S7OWoc-j8qQ?start=45&end=56",
+			"bg": "http://filmconcertslive.com/wp-content/uploads/2015/02/Home-Alone-home-alone-31423371-1876-1027.jpg"
+		},
+		{
+			"id": 7,
+			"name": "Christmas Muppets",
+			"url":"http://www.youtube.com/embed/DiTmqOy5n1k?start=5&end=27",
+			"bg": "https://i.ytimg.com/vi/dhpu2tq9GG4/maxresdefault.jpg"
+		},
+		{
+			"id": 8,
+			"name": "Wonderful Lives",
+			"url":"http://www.youtube.com/embed/FcMgt3JQDxw?start=1&end=13",
+			"bg": "https://i.ytimg.com/vi/j1ZYozXa154/maxresdefault.jpg"
+		},
+		{
+			"id": 9,
+			"name": "Waltons",
+			"url":"http://www.youtube.com/embed/umEEnFtmV0I?start=1789&end=1810",
+			"bg": "http://judynorton.com/wp-content/flagallery/tv-amp-film/waltons-the-homecoming-2.jpg"
+		},
+		{
+			"id": 10,
+			"name": "Rudolphs",
+			"url":"http://www.youtube.com/embed/PgHCZWoMwm4?start=75&end=86",
+			"bg": "https://s.yimg.com/uu/api/res/1.2/73dwH9DqZ.SfczLIUePajw--/aD0xMzQxO3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u/http://l.yimg.com/os/publish-images/tv/2014-12-05/6c2810b0-7cd9-11e4-82bf-97f165ff0daa_cbs-rudolph-red-nosed-reindeer-rankin-bass-178.jpg"
+		},
+		{
+			"id": 11,
+			"name": "Mogwais",
+			"url":"http://www.youtube.com/embed/Zo4LNBw-ajE?start=53&end=71",
+			"bg": "http://cdn1us.denofgeek.com/sites/denofgeekus/files/lead.png"
+		},
+		{
+			"id": 12,
+			"name": "Worrells",
+			"url":"http://www.youtube.com/embed/Ycfuj5y7qds?start=0&end=17",
+			"bg": "https://image.tmdb.org/t/p/original/lpgnAUrRXlIMyFidvNIuG3ZEjOq.jpg"
+		}
+	]};
+	</script>
+	<script>
+      var socket = io();
+	  $(document).ready(function (e){
+	  //socket.emit('chat message', 'Yall');
+	  //socket.emit('chat message', 'Merry Christmas!');
+	  });
+	  //socket.emit('chat message', $('#m').val());
+	  
+      //$('form').submit(function(){
+      //  socket.emit('chat message', $('#m').val());
+      //  $('#m').val('');
+      //  return false;
+      //});
+	  var locked = 0;
+      socket.on('chat message', function(msg){
+	  
+	  for (var i=0; i<teamdata.teams.length; i++){
+	  if (("Team " + teamdata.teams[i].name == msg && locked !=1)){
+	  $('#ytlink').attr('href',teamdata.teams[i].url);
+	  $('#ytlink').click();
+	  locked = 1;
+	  //alert(document['body'].offsetHeight);
+	  $('#chatbox1', window.parent.document).height('0%');
+	  $('#chatbox2', window.parent.document).height('100%');
+	  //alert(window.parent.document.getElementById('chatbox1'))//.height = '0';
+	  //window.parent.document.getElementById('chatbox2').height = '100%';
+	  //alert(teamdata.teams[i].url);
+	  }
+	  }
+	  
+        //$('#messages').prepend($('<li>').html(msg));
+      });
+	  function unlockit(){
+	  locked = 0;
+	  }
+	  function agf()
+	  {$('.lity-wrap:first').click();
+	  $('#chatbox1', window.parent.document).height('100%');
+	  $('#chatbox2', window.parent.document).height('0%');
+	  
+	  
+	  
+	  
+	  }
+    </script>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <!-- <form action=""> -->
+      <!-- <input id="m" autocomplete="off" /><button>Send</button> -->
+    <!-- </form> -->
+        <a class="btn" href="#" id="ytlink" data-lity>&nbsp;</a>
+		<script src="lity.js"></script>
+		<script src="prism.js"></script>
+  </body>
+</html>

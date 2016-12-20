@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+    <head>
+	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	<style>
+	body {
+		text-align: center;
+		background: url('./christmas-background-003.jpg');
+	}
+
+	.button {
+		display: inline-block;
+		margin: 10px;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		border-radius: 8px;
+		-webkit-box-shadow:    0 8px 0 #c5373a, 0 15px 20px rgba(0, 0, 0, .35);
+		-moz-box-shadow: 0 8px 0 #c5373a, 0 15px 20px rgba(0, 0, 0, .35);
+		box-shadow: 0 8px 0 #c5373a, 0 15px 20px rgba(0, 0, 0, .35);
+		-webkit-transition: -webkit-box-shadow .1s ease-in-out;
+		-moz-transition: -moz-box-shadow .1s ease-in-out;
+		-o-transition: -o-box-shadow .1s ease-in-out;
+		transition: box-shadow .1s ease-in-out;
+		font-size: 50px;
+		color: #fff;
+	}
+
+	.button span {
+		display: inline-block;
+		padding: 20px 30px;
+		background-color: #ed0000;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		border-radius: 8px;
+		-webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+		-moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+		box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+		font-family: 'Pacifico', Arial, sans-serif;
+		line-height: 1;
+		text-shadow: 0 -1px 1px rgba(255, 49, 95, .7);
+		-webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+		-moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+		-o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+		transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+	}
+
+	.button:hover span {
+		background-color: #ec6a6a;
+		text-shadow: 0 -1px 1px rgba(255, 49, 95, .9), 0 0 5px rgba(255, 255, 255, .8);
+	}
+
+	.button:active, .button:focus {
+		-webkit-box-shadow:    0 8px 0 #c53737, 0 12px 10px rgba(0, 0, 0, .3);
+		-moz-box-shadow: 0 8px 0 #c53737, 0 12px 10px rgba(0, 0, 0, .3);
+		box-shadow:    0 8px 0 #c53737, 0 12px 10px rgba(0, 0, 0, .3);
+	}
+
+	.button:active span {
+		-webkit-transform: translate(0, 4px);
+		-moz-transform: translate(0, 4px);
+		-o-transform: translate(0, 4px);
+		transform: translate(0, 4px);
+	}
+	</style>	
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic|Arvo:700,400,400italic' rel='stylesheet' type='text/css'>
+    <link href="style.css" media="all" rel="stylesheet" type="text/css">
+    <link href="prism.css" media="all" rel="stylesheet" type="text/css">
+    <link href="lity.css" rel="stylesheet"/>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+	var data = {"teams": [
+		{
+			"id": 1,
+			"name": "Elves",
+			"url":"http://www.youtube.com/embed/rBSlev7NMgU?start=0&end=27",
+			"bg": "https://www.thirtyone-west.com/wp-content/uploads/2016/11/elf.jpg"
+		},
+		{
+			"id": 2,
+			"name": "Frosties",
+			"url":"http://www.youtube.com/embed/_Qw-h_yZ1ZQ?start=1&end=6",
+			"bg": "http://wallpapercave.com/wp/B9pvEG1.jpg"
+		},
+		{
+			"id": 3,
+			"name": "Grinches",
+			"url":"http://www.youtube.com/embed/ppWrbYC3WwQ?start=1&end=13",
+			"bg": "http://schmoesknow.com/wp-content/uploads/2014/12/how-the-grinch-stole-christmas-7.jpg"
+		},
+		{
+			"id": 4,
+			"name": "Polar Express",
+			"url":"http://www.youtube.com/embed/3bgyZ2GmJI0?start=105&end=114",
+			"bg": "http://img.youtube.com/vi/3bgyZ2GmJI0/maxresdefault.jpg"
+		},
+		{
+			"id": 5,
+			"name": "Griswolds",
+			"url":"https://www.youtube.com/embed/gd_qt_ijuSs?start=23&&end=28",
+			"bg": "https://i.ytimg.com/vi/-kTlFQHDIIo/maxresdefault.jpg"
+		},
+		{
+			"id": 6,
+			"name": "McCallisters",
+			"url":"//www.youtube.com/embed/S7OWoc-j8qQ?start=45&end=56",
+			"bg": "http://filmconcertslive.com/wp-content/uploads/2015/02/Home-Alone-home-alone-31423371-1876-1027.jpg"
+		},
+		{
+			"id": 7,
+			"name": "Christmas Muppets",
+			"url":"http://www.youtube.com/embed/DiTmqOy5n1k?start=5&end=27",
+			"bg": "https://i.ytimg.com/vi/dhpu2tq9GG4/maxresdefault.jpg"
+		},
+		{
+			"id": 8,
+			"name": "Wonderful Lives",
+			"url":"http://www.youtube.com/embed/FcMgt3JQDxw?start=1&end=13",
+			"bg": "https://i.ytimg.com/vi/j1ZYozXa154/maxresdefault.jpg"
+		},
+		{
+			"id": 9,
+			"name": "Waltons",
+			"url":"http://www.youtube.com/embed/umEEnFtmV0I?start=1789&end=1810",
+			"bg": "http://judynorton.com/wp-content/flagallery/tv-amp-film/waltons-the-homecoming-2.jpg"
+		},
+		{
+			"id": 10,
+			"name": "Rudolphs",
+			"url":"http://www.youtube.com/embed/PgHCZWoMwm4?start=75&end=85",
+			"bg": "https://s.yimg.com/uu/api/res/1.2/73dwH9DqZ.SfczLIUePajw--/aD0xMzQxO3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u/http://l.yimg.com/os/publish-images/tv/2014-12-05/6c2810b0-7cd9-11e4-82bf-97f165ff0daa_cbs-rudolph-red-nosed-reindeer-rankin-bass-178.jpg"
+		},
+		{
+			"id": 11,
+			"name": "Mogwais",
+			"url":"http://www.youtube.com/embed/Zo4LNBw-ajE?start=53&end=71",
+			"bg": "http://cdn1us.denofgeek.com/sites/denofgeekus/files/lead.png"
+		},
+		{
+			"id": 12,
+			"name": "Worrells",
+			"url":"http://www.youtube.com/embed/Ycfuj5y7qds?start=0&end=17",
+			"bg": "https://image.tmdb.org/t/p/original/lpgnAUrRXlIMyFidvNIuG3ZEjOq.jpg"
+		}
+	]};
+      var socket = io();
+	  var teamint = 5;
+	function sendMsg(i){
+	
+	socket.emit('chat message', 'Team '+data.teams[i].name);
+	//socket.emit('chat message', outputtxt);
+	
+	}
+	
+	  function setUI(i){
+	  //$('#stage').html('<iframe title="YouTube video player" src="'+data.teams[i].url+'" class="youtube-player" type="text/html" width="640" height="390" frameborder="0" id="ifrm"></iframe>');
+	  $('#mainclickerlabel').html(data.teams[i].name);
+	  $('#ytlink').attr('href',data.teams[i].url);
+	  $('body').css('background', 'url('+data.teams[i].bg+') no-repeat center center fixed');
+	  $('body').css('-webkit-background-size', 'cover');
+	  $('body').css('-moz-background-size', 'cover');
+	  $('body').css('-o-background-size', 'cover');
+	  $('body').css('background-size', 'cover');
+	  //socket.emit('chat message', 'Team '+data.teams[i].name+' has joined!');
+	  }
+	  $(document).ready(function (e){
+	  setUI(teamint);
+	  });
+	  $(document).keyup(function(e) {
+	  var c = String.fromCharCode(e.which);
+	  if((("0123456789").indexOf(c) !== -1)){
+	  teamint = parseInt(c);
+	  setUI(teamint);
+	  };
+	});
+	  
+	  $(document).dblclick(function(e) {
+	 if ((teamint == data.teams.length-1)){
+	  teamint =0;
+	  setUI(teamint);
+	  }
+	  else {
+	  teamint ++;
+	  setUI(teamint);}
+		});
+	  function agf()
+	  {$('.lity-wrap:first').click();}
+	</script>
+		    </head>
+    <body>
+		<a href="#" class="button" id="mainclicker" onclick="sendMsg(teamint);">
+			<span id="mainclickerlabel">Santas</span>
+		</a>
+		</form>
+		<br>
+		<div id="stage"></div>
+		
+        <ul id='messages'></ul>
+        <!-- <a class="btn" href="//www.youtube.com/watch?v=XSGBVzeBUbk" id="ytlink" data-lity>YouTube</a> -->
+		<script src="lity.js"></script>
+		<script src="prism.js"></script>
+    </body>
+	
+
+</html>
