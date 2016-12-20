@@ -1,6 +1,8 @@
 # buzzer-jeopardy
 
-![Board](https://raw.githubusercontent.com/x0ry/buzzer-jeopardy/master/files/b.png)
+![Board](https://raw.githubusercontent.com/x0ry/buzzer-jeopardy/master/files/ss1.png)
+
+![Buzzer](https://raw.githubusercontent.com/x0ry/buzzer-jeopardy/master/files/ss2.png)
 
 *	Simple app to host holiday jeopardy where each participant's phone becomes a themed buzzer / youtube video caster.
 *	Socket.IO implementation for generating a buzzer from you favorite holiday youtube clips.
